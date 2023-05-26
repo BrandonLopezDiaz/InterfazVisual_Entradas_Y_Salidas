@@ -76,11 +76,11 @@ import axios from "axios"
                 <input type="number" id="numero" name="num" value="" placeholder="Ingrese el numero del practicante" />
                 <button @click="consultarpracticantes()" class="btn btn-primary">Buscar</button>
             </div>
-            <div class="tabla">
-                <table class="table">
+            <div class="tabla" >
+                <table id="mytable" class="table">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>idAutoEvents</th>
                             <th>Entrada/Salida</th>
                             <th>Hora</th>
                             <th>Numero del practicante</th>
@@ -92,7 +92,7 @@ import axios from "axios"
                         <tr v-for="tblEvents in practicante" :key="tblEvents.idAutoEvents">
                             <td>{{ tblEvents.idAutoEvents }}</td>
                             <td>{{ tblEvents.tDesc }}</td>
-                            <td>{{ tblEvents.dtEventReal }}</td>
+                            <td id="hora">{{ tblEvents.dtEventReal }}</td>
                             <td>{{ tblEvents.idEmpNum }}</td>
                             <td>{{ tblEvents.iCardCode }}</td>
                             <td>{{ tblEvents.tFullName }}</td>
@@ -109,16 +109,19 @@ export default {
         return {
             practicante: [],
             form: {
-                "numero": ""
+                "numero": "",
+                "hora": ""
             }
         };
     },
     methods: {
-        consultarpracticantes() {
+        async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
+            await axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
+                this.form.hora = result.data.result;
+                console.log(this.form.hora);
             });
         }
     },
@@ -154,7 +157,8 @@ body {
 }
 .tabla{
     width: 38%;
-
+    height: 1730%;
+    overflow: scroll;
 }
 .buscador{
     font-size: 180%;
@@ -163,12 +167,11 @@ body {
     padding-right: 2%;
 }
 .buscador input{
-    padding-right: 0.4%;
     border-radius: 0.5%;
     height: 99%;
 }
 .buscador button{
-    padding-left: 0.5;
+    padding-right: 5%;
 }
 
 .sidebar {
@@ -184,7 +187,6 @@ body {
     cursor: pointer;
     background: #497ceb;
     transition: 0.5s;
-    overflow: hidden;
 }
 
 .sidebar:hover {
