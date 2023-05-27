@@ -109,10 +109,13 @@ export default {
         return {
             practicante: [],
             form: {
-                "numero": "",
-                "hora": ""
+                "numero": ""
             }
         };
+    },
+    created: function()
+    {
+            this.pruebita();
     },
     methods: {
         async consultarpracticantes() {
@@ -120,10 +123,15 @@ export default {
             await axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
-                this.form.hora = result.data.result;
-                console.log(this.form.hora);
+                
             });
-        }
+        },
+        pruebita(){
+            const prueba = this.practicante;
+            const midato = prueba.map(item =>item === this.practicante.tDesc);
+            console.log(midato);
+        },
+        
     },
 };
 </script>
