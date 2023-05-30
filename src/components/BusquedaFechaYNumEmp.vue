@@ -75,10 +75,11 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el numero del practicante</label>
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
+                <input type="date" id="fecha" >
+
                 <button @click="consultarpracticantes()" class="btn btn-primary">Buscar</button>
                 
-                <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
-                <button id="Excel"  class="btn btn-success">Importar a Excel</button>
+                <button id="Excel"  class="btn btn-success" style="margin-left: 0.3%;">Importar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
@@ -129,7 +130,8 @@ export default {
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            await axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
+            this.form.fecha= document.getElementById('fecha').value;
+            await axios.get('https://localhost:7127/tblEvents/numempyfecha?numemp='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
             });
@@ -165,8 +167,12 @@ body {
     height: 20%;
     width: 100%;
 }
+#fecha{
+    width: 15.7%;
+    margin-left: 2%;
+}
 #Excel{
-    margin-left: 4.3%;
+    margin-left: 0.3%;
     margin-right: 0%;
 }
 .IrABusqueda{
@@ -197,7 +203,7 @@ body {
 .buscador button{
     padding-right: 50%;
     margin-right: 2.3%;
-    margin-left: 2%;
+    margin-left: 3%;
     
 }
 

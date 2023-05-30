@@ -5,6 +5,11 @@ import Inicio from '../components/Inicio.vue'
 import BusquedaCode from '../components/BusquedaCodeCard.vue'
 import BusquedaNum from '../components/BusquedaNumEmpleado.vue'
 import BusquedaFull from '../components/BusquedaFullName.vue'
+//Busquedas por dos condiciones
+import BusquedaFechaYNumEmp from '../components/BusquedaFechaYNumEmp.vue'
+import BusquedaFechaYFullName from '../components/BusquedaFechaYFullName.vue'
+import BusquedaFechaYCodeCard from '../components/BusquedaFechaYCodeCard.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +46,21 @@ const router = createRouter({
       name: 'BusquedaNum',
       component: BusquedaNum
     },
+    {
+      path: '/BusquedaFechaYNumEmp',
+      name: 'BusquedaFechaYNumEmp',
+      component: BusquedaFechaYNumEmp
+    },
+    {
+      path: '/BusquedaFechaYFullName',
+      name: 'BusquedaFechaYFullName',
+      component: BusquedaFechaYFullName
+    },
+    {
+      path: '/BusquedaFechaYCodeCard',
+      name: 'BusquedaFechaYCodeCard',
+      component: BusquedaFechaYCodeCard
+    }
   ]
 })
 

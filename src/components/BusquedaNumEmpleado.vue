@@ -4,6 +4,7 @@ import DashBoard from '../views/DashBoard.vue'
 import BusquedaCode from '../components/BusquedaCodeCard.vue'
 import BusquedaNum from '../components/BusquedaNumEmpleado.vue'
 import BusquedaFull from '../components/BusquedaFullName.vue'
+import BusquedaFechaYNumEmp from './BusquedaFechaYNumEmp.vue'
 import axios from "axios"
 </script>
 <template>
@@ -73,29 +74,40 @@ import axios from "axios"
         <div class="Contenido">
             <div class="buscador">
                 <label>Ingrese el numero del practicante</label>
-                <input type="number" id="numero" name="num" value="" placeholder="Ingrese el numero del practicante" />
+                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
                 <button @click="consultarpracticantes()" class="btn btn-primary">Buscar</button>
+                
+                <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
+                <button id="Excel"  class="btn btn-success">Importar a Excel</button>
             </div>
-            <div class="tabla" >
+            <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
                     <thead>
                         <tr>
-                            <th>idAutoEvents</th>
-                            <th>Entrada/Salida</th>
+                            <th>Id</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
                             <th>Hora</th>
+                            <th>Registro</th>
                             <th>Numero del practicante</th>
-                            <th>Codigo de la tarjeta</th>
+                            <th>Numero de la tarjeta</th>
                             <th>Nombre completo</th>
+                            <th>Departamento</th>
+                            <th>Panel</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="tblEvents in practicante" :key="tblEvents.idAutoEvents">
-                            <td>{{ tblEvents.idAutoEvents }}</td>
-                            <td>{{ tblEvents.tDesc }}</td>
-                            <td id="hora">{{ tblEvents.dtEventReal }}</td>
+                            <td>{{ tblEvents.id }}</td>
+                            <td>{{ tblEvents.descripcion }}</td>
+                            <td>{{ tblEvents.fecha }}</td>
+                            <td>{{ tblEvents.hora }}</td>
+                            <td>{{ tblEvents.registro }}</td>
                             <td>{{ tblEvents.idEmpNum }}</td>
-                            <td>{{ tblEvents.iCardCode }}</td>
-                            <td>{{ tblEvents.tFullName }}</td>
+                            <td>{{ tblEvents.tarjeta }}</td>
+                            <td>{{ tblEvents.nombre }}</td>
+                            <td>{{ tblEvents.departamento }}</td>
+                            <td>{{ tblEvents.panel }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,13 +121,10 @@ export default {
         return {
             practicante: [],
             form: {
-                "numero": ""
+                "numero": "",
+                "fecha": ""
             }
         };
-    },
-    created: function()
-    {
-            this.pruebita();
     },
     methods: {
         async consultarpracticantes() {
@@ -123,15 +132,8 @@ export default {
             await axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
-                
             });
         },
-        pruebita(){
-            const prueba = this.practicante;
-            const midato = prueba.map(item =>item === this.practicante.tDesc);
-            console.log(midato);
-        },
-        
     },
 };
 </script>
@@ -143,7 +145,8 @@ export default {
     padding: 0;
     box-sizing: border-box;
 }
-
+/* Boton de busqueda por dos filtros*/
+/*Final de ese boton*/
 a {
     color: #fff;
     text-decoration: none;
@@ -152,19 +155,30 @@ a {
 body {
     font-family: "Roboto", sans-serif;
 }
-
 .Contenido {
     position: fixed;
     padding-top: 8%;
-    padding-left: 20%;
+    padding-left: 14%;
     top: 0;
     left: 0;
     right: 0;
     height: 20%;
     width: 100%;
 }
+#Excel{
+    margin-left: 4.3%;
+    margin-right: 0%;
+}
+.IrABusqueda{
+    margin-left: 3%;
+}
 .tabla{
-    width: 38%;
+    width: 97%;
+    height: 1730%;
+    overflow: scroll;
+}
+.div table{
+    width: 97%;
     height: 1730%;
     overflow: scroll;
 }
@@ -175,11 +189,16 @@ body {
     padding-right: 2%;
 }
 .buscador input{
-    border-radius: 0.5%;
+    border-radius: 4%;
     height: 99%;
+    width: 27%;
+    
 }
 .buscador button{
-    padding-right: 5%;
+    padding-right: 50%;
+    margin-right: 2.3%;
+    margin-left: 2%;
+    
 }
 
 .sidebar {

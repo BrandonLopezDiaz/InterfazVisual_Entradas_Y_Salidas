@@ -4,13 +4,15 @@ import DashBoard from '../views/DashBoard.vue'
 import BusquedaCode from '../components/BusquedaCodeCard.vue'
 import BusquedaNum from '../components/BusquedaNumEmpleado.vue'
 import BusquedaFull from '../components/BusquedaFullName.vue'
+import BusquedaFechaYNumEmp from './BusquedaFechaYNumEmp.vue'
+import axios from "axios"
 </script>
 <template>
     <main>
         <header class="header">
             <div>
                 <h1>
-                    Búsqueda por nombre completo
+                    Búsqueda por número de practicante
                 </h1>
             </div>
         </header>
@@ -39,7 +41,7 @@ import BusquedaFull from '../components/BusquedaFullName.vue'
                             <ion-icon name="chatbox-outline"></ion-icon>
                         </span>
                         <span class="nav-item__text">
-                            Buscar por número de empleado
+                            Buscar por número de practicante
                         </span>
                     </li>
                 </RouterLink>
@@ -67,13 +69,74 @@ import BusquedaFull from '../components/BusquedaFullName.vue'
                     </li>
                 </RouterLink>
             </ul>
-
         </div>
         <!-- Tabla de contenido -->
         <div class="Contenido">
+            <div class="buscador">
+                <label>Ingrese el numero del practicante</label>
+                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
+                <button @click="consultarpracticantes()" class="btn btn-primary">Buscar</button>
+                
+                <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
+                <button id="Excel"  class="btn btn-success">Importar a Excel</button>
+            </div>
+            <div class="tabla" style="width: 97%;">
+                <table id="mytable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Registro</th>
+                            <th>Numero del practicante</th>
+                            <th>Numero de la tarjeta</th>
+                            <th>Nombre completo</th>
+                            <th>Departamento</th>
+                            <th>Panel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="tblEvents in practicante" :key="tblEvents.idAutoEvents">
+                            <td>{{ tblEvents.id }}</td>
+                            <td>{{ tblEvents.descripcion }}</td>
+                            <td>{{ tblEvents.fecha }}</td>
+                            <td>{{ tblEvents.hora }}</td>
+                            <td>{{ tblEvents.registro }}</td>
+                            <td>{{ tblEvents.idEmpNum }}</td>
+                            <td>{{ tblEvents.tarjeta }}</td>
+                            <td>{{ tblEvents.nombre }}</td>
+                            <td>{{ tblEvents.departamento }}</td>
+                            <td>{{ tblEvents.panel }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            practicante: [],
+            form: {
+                "numero": "",
+                "fecha": ""
+            }
+        };
+    },
+    methods: {
+        async consultarpracticantes() {
+            this.form.numero = document.getElementById('numero').value;
+            await axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
+                console.log(result.data.result);
+                this.practicante = result.data.result;
+            });
+        },
+    },
+};
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -82,7 +145,8 @@ import BusquedaFull from '../components/BusquedaFullName.vue'
     padding: 0;
     box-sizing: border-box;
 }
-
+/* Boton de busqueda por dos filtros*/
+/*Final de ese boton*/
 a {
     color: #fff;
     text-decoration: none;
@@ -91,11 +155,50 @@ a {
 body {
     font-family: "Roboto", sans-serif;
 }
-
 .Contenido {
-    padding: top 15%;
+    position: fixed;
+    padding-top: 8%;
+    padding-left: 14%;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 20%;
-    width: 200%;
+    width: 100%;
+}
+#Excel{
+    margin-left: 4.3%;
+    margin-right: 0%;
+}
+.IrABusqueda{
+    margin-left: 3%;
+}
+.tabla{
+    width: 97%;
+    height: 1730%;
+    overflow: scroll;
+}
+.div table{
+    width: 97%;
+    height: 1730%;
+    overflow: scroll;
+}
+.buscador{
+    font-size: 180%;
+}
+.buscador,label{
+    padding-right: 2%;
+}
+.buscador input{
+    border-radius: 4%;
+    height: 99%;
+    width: 27%;
+    
+}
+.buscador button{
+    padding-right: 50%;
+    margin-right: 2.3%;
+    margin-left: 2%;
+    
 }
 
 .sidebar {
@@ -111,7 +214,6 @@ body {
     cursor: pointer;
     background: #497ceb;
     transition: 0.5s;
-    overflow: hidden;
 }
 
 .sidebar:hover {
