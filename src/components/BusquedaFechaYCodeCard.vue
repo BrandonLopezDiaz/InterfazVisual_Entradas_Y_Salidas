@@ -12,7 +12,7 @@ import axios from "axios"
         <header class="header">
             <div>
                 <h1>
-                    Búsqueda por número de practicante
+                    Búsqueda por numero de tarjeta y fecha
                 </h1>
             </div>
         </header>
@@ -73,18 +73,18 @@ import axios from "axios"
         <!-- Tabla de contenido -->
         <div class="Contenido">
             <div class="buscador">
-                <label>Ingrese el numero del practicante</label>
-                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
-                <input type="date" id="fecha" >
+                <label>Ingrese el numero de tarjeta</label>
+                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero de tarjeta"/>
+                <input type="date" id="fecha" placeholder="mm-dd-yyyy">
 
-                <button @click="consultarpracticantes()" class="btn btn-primary">Buscar</button>
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
                 
-                <button id="Excel"  class="btn btn-success" style="margin-left: 0.3%;">Importar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0.3%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
                     <thead>
-                        <tr>
+                        <tr class="Arriba">
                             <th>Id</th>
                             <th>Descripcion</th>
                             <th>Fecha</th>
@@ -117,6 +117,12 @@ import axios from "axios"
     </main>
 </template>
 <script>
+function tableToExcel(){
+    $("#mytable").table2excel({
+        filename: 'Colaborador_'+document.getElementById('numero').value +'_Fecha_'+ document.getElementById('fecha').value+'.xls',
+        name: "worksheet"
+    })
+}
 export default {
     data() {
         return {
@@ -131,9 +137,11 @@ export default {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
             this.form.fecha= document.getElementById('fecha').value;
-            await axios.get('https://localhost:7127/tblEvents/numempyfecha?numemp='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
+            let fecha = this.form.fecha.split('-')
+            this.form.fecha = `${fecha[1]}-${fecha[2]}-${fecha[0]}`
+            await axios.get('https://localhost:7127/tblEvents/cardcodeyfecha?tarjeta='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
                 console.log(result.data.result);
-                this.practicante = result.data.result;
+                this.practicante = result.data.result; 
             });
         },
     },

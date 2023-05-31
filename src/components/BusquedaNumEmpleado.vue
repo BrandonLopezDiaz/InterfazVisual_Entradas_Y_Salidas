@@ -75,15 +75,15 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el numero del practicante</label>
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
-                <button @click="consultarpracticantes()" class="btn btn-primary">Buscar</button>
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
                 
                 <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
-                <button id="Excel"  class="btn btn-success">Importar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
                     <thead>
-                        <tr>
+                        <tr class="Arriba">
                             <th>Id</th>
                             <th>Descripcion</th>
                             <th>Fecha</th>
@@ -116,6 +116,12 @@ import axios from "axios"
     </main>
 </template>
 <script>
+function tableToExcel(){
+    $("#mytable").table2excel({
+        filename: 'Colaborador_'+document.getElementById('numero').value + '.xls',
+        name: "worksheet"
+    })
+}
 export default {
     data() {
         return {
@@ -154,6 +160,9 @@ a {
 
 body {
     font-family: "Roboto", sans-serif;
+    background-image: url("../assets/Imagenes/Logo2.png");
+
+    
 }
 .Contenido {
     position: fixed;
@@ -166,21 +175,29 @@ body {
     width: 100%;
 }
 #Excel{
+    padding-right: inherit;
     margin-left: 4.3%;
     margin-right: 0%;
 }
 .IrABusqueda{
     margin-left: 3%;
 }
+.Arriba{
+    background-color:#497ceb;
+    color: white;
+}
 .tabla{
     width: 97%;
     height: 1730%;
     overflow: scroll;
+    background-color: white;
+    border-radius: 1%;
 }
 .div table{
     width: 97%;
     height: 1730%;
     overflow: scroll;
+    
 }
 .buscador{
     font-size: 180%;
@@ -195,8 +212,8 @@ body {
     
 }
 .buscador button{
-    padding-right: 50%;
-    margin-right: 2.3%;
+    padding-right: inherit;
+    margin-right: 1.3%;
     margin-left: 2%;
     
 }
