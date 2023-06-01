@@ -75,7 +75,7 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el numero de la tarjeta</label>
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero de la tarjeta"/>
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar  </button>
                 
                 <RouterLink to="BusquedaFechaYCodeCard" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
                 <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;">Exportar a Excel</button>
