@@ -94,6 +94,7 @@ import axios from "axios"
                             <th>Nombre completo</th>
                             <th>Departamento</th>
                             <th>Panel</th>
+                            <th style="visibility: collapse; display:None;">Horas totales</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,6 +109,7 @@ import axios from "axios"
                             <td>{{ tblEvents.nombre }}</td>
                             <td>{{ tblEvents.departamento }}</td>
                             <td>{{ tblEvents.panel }}</td>
+                            <td style="visibility: collapse; display:None;">{{ tblEvents.formla }} </td>
                         </tr>
                     </tbody>
                 </table>
@@ -121,6 +123,7 @@ function tableToExcel(){
         filename: 'Colaborador_'+document.getElementById('numero').value + '.xls',
         name: "worksheet"
     })
+    window.alert('Esto podria demorar unos segundos');
 }
 export default {
     data() {
@@ -138,6 +141,9 @@ export default {
             await axios.get('https://localhost:7127/tblEvents/numemp?numemp=' + this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
+                if(result.data.result ==0){
+                    window.alert('No se encontró ningun registro');
+                } 
             });
         },
     },
