@@ -9,7 +9,9 @@ import BusquedaFull from '../components/BusquedaFullName.vue'
 import BusquedaFechaYNumEmp from '../components/BusquedaFechaYNumEmp.vue'
 import BusquedaFechaYFullName from '../components/BusquedaFechaYFullName.vue'
 import BusquedaFechaYCodeCard from '../components/BusquedaFechaYCodeCard.vue'
-
+import BusquedaNumpYPanel from '../components/BusquedaNumpYPanel.vue'
+//Busqueda por tres condiciones
+import BusquedaNumEmpYPanelYFecha from '../components/BusquedaNumEmpYPanelYFecha.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +62,16 @@ const router = createRouter({
       path: '/BusquedaFechaYCodeCard',
       name: 'BusquedaFechaYCodeCard',
       component: BusquedaFechaYCodeCard
+    },
+    {
+      path: '/BusquedaNumEmpYPanelYFecha',
+      name: 'BusquedaNumEmpYPanelYFecha',
+      component: BusquedaNumEmpYPanelYFecha
+    },
+    {
+      path: '/BusquedaNumpYPanel',
+      name: 'BusquedaNumpYPanel',
+      component: BusquedaNumpYPanel
     }
   ]
 })

@@ -59,6 +59,17 @@ import BusquedaFull from '../components/BusquedaFullName.vue'
 
                     </li>
                 </RouterLink>
+                <RouterLink to="/BusquedaNumpYPanel">
+                    <li class="nav-item" style="padding-left: 4%;">
+
+                        <span class="nav-item__icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <span class="nav-item__text">
+                            Buscar por panel y numero de empleado
+                        </span>
+                    </li>
+                </RouterLink>
             </ul>
 
         </div>

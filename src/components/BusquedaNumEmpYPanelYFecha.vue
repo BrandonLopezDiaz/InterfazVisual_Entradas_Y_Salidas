@@ -12,7 +12,7 @@ import axios from "axios"
         <header class="header">
             <div>
                 <h1>
-                    Búsqueda por número de tarjeta
+                    Búsqueda por número de practicante
                 </h1>
             </div>
         </header>
@@ -84,11 +84,13 @@ import axios from "axios"
         <!-- Tabla de contenido -->
         <div class="Contenido">
             <div class="buscador">
-                <label>Ingrese el numero de la tarjeta</label>
-                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero de la tarjeta"/>
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar  </button>
-                
-                <RouterLink to="BusquedaFechaYCodeCard" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
+                <label>Ingrese el numero del practicante y panel</label>
+                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
+                <select id="Panel" > <option selected>Elija un panel</option>
+                <option v-for="tblNetwork in Panel" :value="tblNetwork.idNetwork" :key="tblNetwork.idNetwork"> {{tblNetwork.tDescNetwork}}</option></select>
+                <input type="date" id="fecha" placeholder="mm-dd-yyyy">
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit; margin-left: 0.1%; " >Buscar</button>
+                <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
                 <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
@@ -133,7 +135,6 @@ function tableToExcel(){
     $("#mytable").table2excel({
         filename: 'Colaborador_'+document.getElementById('numero').value + '.xls',
         name: "worksheet"
-        
     })
     window.alert('Esto podria demorar unos segundos');
 }
@@ -143,14 +144,25 @@ export default {
             practicante: [],
             form: {
                 "numero": "",
-                "fecha": ""
-            }
+                "fecha": "",
+                "panel":""
+
+            },
+            Panel:[]
         };
+    },
+    created: function(){
+        this.ConsultarPanel();
+
     },
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            await axios.get('https://localhost:7127/tblEvents/cardcode?tarjeta=' + this.form.numero).then((result) => {
+            this.form.fecha= document.getElementById('fecha').value
+            this.form.panel = document.getElementById('Panel').value;
+            let fecha = this.form.fecha.split('-')
+            this.form.fecha = `${fecha[1]}-${fecha[2]}-${fecha[0]}`
+            await axios.get('https://localhost:7127/tblEvents/panelnumfecha?id='+this.form.panel+'&numemp='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
                 if(result.data.result ==0){
@@ -158,7 +170,15 @@ export default {
                 } 
             });
         },
+        async ConsultarPanel() {
+            await axios.get('https://localhost:7127/tblNetwork').then((result) => {
+                console.log(result.data.result);
+                this.Panel = result.data.result;
+            });
+        },
+        
     },
+
 };
 </script>
 <style>
