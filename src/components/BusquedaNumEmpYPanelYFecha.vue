@@ -90,7 +90,6 @@ import axios from "axios"
                 <option v-for="tblNetwork in Panel" :value="tblNetwork.idNetwork" :key="tblNetwork.idNetwork"> {{tblNetwork.tDescNetwork}}</option></select>
                 <input type="date" id="fecha" placeholder="mm-dd-yyyy">
                 <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit; margin-left: 0.1%; " >Buscar</button>
-                <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
                 <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">

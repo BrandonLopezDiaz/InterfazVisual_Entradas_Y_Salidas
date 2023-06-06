@@ -86,8 +86,8 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el numero del practicante</label>
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
-                <input type="date" id="fecha" placeholder="mm-dd-yyyy">
-
+                <input type="date" id="FechaInicio" placeholder="mm-dd-yyyy">
+                <input type="date" id="FechaFinal" placeholder="mm-dd-yyyy">
                 <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
                 
                 <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0.3%;">Exportar a Excel</button>
@@ -132,7 +132,7 @@ import axios from "axios"
 <script>
 function tableToExcel(){
     $("#mytable").table2excel({
-        filename: 'Colaborador_'+document.getElementById('numero').value +'_Fecha_'+ document.getElementById('fecha').value+'.xls',
+        filename: 'Colaborador_'+document.getElementById('numero').value +'_Inicio_'+ document.getElementById('FechaInicio').value+'_Final_'+document.getElementById('FechaFinal').value+'.xls',
         name: "worksheet",
         
     })
@@ -144,17 +144,23 @@ export default {
             practicante: [],
             form: {
                 "numero": "",
-                "fecha": ""
+                "fechainicio": "",
+                "fechafinal": ""
+
             }
         };
     },
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            this.form.fecha= document.getElementById('fecha').value;
-            let fecha = this.form.fecha.split('-')
-            this.form.fecha = `${fecha[1]}-${fecha[2]}-${fecha[0]}`
-            await axios.get('https://localhost:7127/tblEvents/numempyfecha?numemp='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
+            this.form.fechainicio= document.getElementById('FechaInicio').value;
+            this.form.fechafinal= document.getElementById('FechaFinal').value;
+
+            let FechaInicio = this.form.fechainicio.split('-')
+            this.form.fechainicio = `${FechaInicio[1]}-${FechaInicio[2]}-${FechaInicio[0]}`
+            let FechaFinal = this.form.fechafinal.split('-')
+            this.form.fechafinal = `${FechaFinal[1]}-${FechaFinal[2]}-${FechaFinal[0]}`
+            await axios.get('https://localhost:7127/tblEvents/numempyfecha?numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
                 if(result.data.result ==0){
