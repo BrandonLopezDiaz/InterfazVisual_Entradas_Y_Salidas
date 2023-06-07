@@ -86,11 +86,12 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el nombre completo</label>
                 <input type="search" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el nombre completo"/>
-                <input type="date" id="fecha" placeholder="mm-dd-yyyy">
-
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
+                <input type="date" id="FechaInicio" placeholder="mm-dd-yyyy">
+                <input type="date" id="FechaFinal" placeholder="mm-dd-yyyy">
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: 1%;">Buscar</button>
                 
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0.3%;">Exportar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0.3%;padding-left: 1%;
+                padding-right: 1%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
@@ -132,8 +133,7 @@ import axios from "axios"
 <script>
 function tableToExcel(){
     $("#mytable").table2excel({
-        filename: 'Colaborador_'+document.getElementById('numero').value +'_Fecha_'+ document.getElementById('fecha').value+'.xls',
-        name: "worksheet"
+        filename: 'Colaborador_'+document.getElementById('numero').value +'_Fecha_'+ document.getElementById('fecha').value+'.xls',        name: "worksheet"
     })
     window.alert('Esto podria demorar unos segundos');
 }
@@ -143,17 +143,23 @@ export default {
             practicante: [],
             form: {
                 "numero": "",
-                "fecha": ""
+                "fechainicio": "",
+                "fechafinal": ""
+
             }
         };
     },
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            this.form.fecha= document.getElementById('fecha').value;
-            let fecha = this.form.fecha.split('-')
-            this.form.fecha = `${fecha[1]}-${fecha[2]}-${fecha[0]}`
-            await axios.get('https://localhost:7127/tblEvents/nombreyfecha?nombre='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
+            this.form.fechainicio= document.getElementById('FechaInicio').value;
+            this.form.fechafinal= document.getElementById('FechaFinal').value;
+
+            let FechaInicio = this.form.fechainicio.split('-')
+            this.form.fechainicio = `${FechaInicio[1]}-${FechaInicio[2]}-${FechaInicio[0]}`
+            let FechaFinal = this.form.fechafinal.split('-')
+            this.form.fechafinal = `${FechaFinal[1]}-${FechaFinal[2]}-${FechaFinal[0]}`
+            await axios.get('https://localhost:7127/tblEvents/nombreyfecha?nombre='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result; 
                 if(result.data.result ==0){
@@ -192,7 +198,7 @@ body {
     height: 20%;
     width: 100%;
 }
-#fecha{
+#FechaInicio, #FechaFinal{
     width: 15.7%;
     margin-left: 2%;
 }
@@ -228,7 +234,7 @@ body {
 .buscador button{
     padding-right: 50%;
     margin-right: 2.3%;
-    margin-left: 3%;
+    margin-left: 1%;
     
 }
 

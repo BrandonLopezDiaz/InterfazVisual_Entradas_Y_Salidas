@@ -90,10 +90,10 @@ import axios from "axios"
                     <option selected>Elija un panel</option>
                     <option v-for="tblNetwork in Panel" :value="tblNetwork.idNetwork" :key="tblNetwork.idNetwork"> {{tblNetwork.tDescNetwork}}</option>
                 </select>
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit; margin-right: -1.7%;margin-left: 1%;"  >Buscar</button>
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: 1%;margin-left: 0.5%; margin-right: -2.7%;"  >Buscar</button>
 
-                <RouterLink to="BusquedaNumEmpYPanelYFecha" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 0.3%;">Exportar a Excel</button>
+                <RouterLink to="BusquedaNumEmpYPanelYFecha" class="IrABusqueda"><bottom class="btn btn-primary" style="margin-left: 1%;">Busqueda por fecha</bottom></RouterLink>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 1%; padding-left: 1%; padding-right: 1%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
@@ -222,7 +222,7 @@ body {
     margin-right: 0%;
 }
 .IrABusqueda{
-    margin-left: 3%;
+    margin-left: 1%;
 }
 .Arriba{
     background-color:#497ceb;
@@ -255,8 +255,9 @@ body {
 }
 .buscador button{
     padding-right: inherit;
-    margin-right: 1%;
+
     margin-left: 1%;
+    margin-right: -2.7%;
     
 }
 

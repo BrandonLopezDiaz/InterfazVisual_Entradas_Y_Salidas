@@ -88,9 +88,14 @@ import axios from "axios"
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
                 <select id="Panel" > <option selected>Elija un panel</option>
                 <option v-for="tblNetwork in Panel" :value="tblNetwork.idNetwork" :key="tblNetwork.idNetwork"> {{tblNetwork.tDescNetwork}}</option></select>
-                <input type="date" id="fecha" placeholder="mm-dd-yyyy">
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit; margin-left: 0.1%; " >Buscar</button>
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;">Exportar a Excel</button>
+                <div class="FechasDeLabel">
+                    <label>Fecha de inicio y fecha final</label>
+                </div>
+                <input type="date" id="FechaInicio" placeholder="mm-dd-yyyy">
+                <input type="date" id="FechaFinal" placeholder="mm-dd-yyyy">
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: 1%; margin-left: 1.1%; " >Buscar</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: -0.7%;padding-left: 1%;
+                padding-right: 1%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
@@ -132,8 +137,7 @@ import axios from "axios"
 <script>
 function tableToExcel(){
     $("#mytable").table2excel({
-        filename: 'Colaborador_'+document.getElementById('numero').value + '.xls',
-        name: "worksheet"
+        filename: 'Colaborador_'+document.getElementById('numero').value +'_Fecha_'+ document.getElementById('fecha').value+'.xls',        name: "worksheet"
     })
     window.alert('Esto podria demorar unos segundos');
 }
@@ -144,7 +148,9 @@ export default {
             form: {
                 "numero": "",
                 "fecha": "",
-                "panel":""
+                "panel":"",
+                "fechainicio": "",
+                "fechafinal": ""
 
             },
             Panel:[]
@@ -157,11 +163,14 @@ export default {
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            this.form.fecha= document.getElementById('fecha').value
             this.form.panel = document.getElementById('Panel').value;
-            let fecha = this.form.fecha.split('-')
-            this.form.fecha = `${fecha[1]}-${fecha[2]}-${fecha[0]}`
-            await axios.get('https://localhost:7127/tblEvents/panelnumfecha?id='+this.form.panel+'&numemp='+this.form.numero+'&fecha='+this.form.fecha).then((result) => {
+            this.form.fechainicio= document.getElementById('FechaInicio').value;
+            this.form.fechafinal= document.getElementById('FechaFinal').value;
+            let FechaInicio = this.form.fechainicio.split('-')
+            this.form.fechainicio = `${FechaInicio[1]}-${FechaInicio[2]}-${FechaInicio[0]}`
+            let FechaFinal = this.form.fechafinal.split('-')
+            this.form.fechafinal = `${FechaFinal[1]}-${FechaFinal[2]}-${FechaFinal[0]}`
+            await axios.get('https://localhost:7127/tblEvents/panelnumfecha?id='+this.form.panel+'&numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
                 if(result.data.result ==0){
@@ -197,9 +206,6 @@ a {
 
 body {
     font-family: "Roboto", sans-serif;
-    background-image: url("../assets/Imagenes/Logo2.png");
-
-    
 }
 .Contenido {
     position: fixed;
@@ -211,36 +217,41 @@ body {
     height: 20%;
     width: 100%;
 }
+.FechasDeLabel{
+    margin-left: 1%;
+
+    width: auto;
+}
+#FechaInicio, #FechaFinal{
+    width: 12.1%;
+    margin-left: 0.5%;
+}
+#Panel{
+    MARGIN-LEFT: 0.3%;
+    border-radius: 4%;
+}
 #Excel{
-    padding-right: inherit;
-    margin-left: 4.3%;
+    margin-left: 0.3%;
     margin-right: 0%;
 }
 .IrABusqueda{
     margin-left: 3%;
 }
-.Arriba{
-    background-color:#497ceb;
-    color: white;
-}
 .tabla{
     width: 97%;
-    height: 1730%;
+    height: 1556%;
     overflow: scroll;
-    background-color: white;
-    border-radius: 1%;
 }
 .div table{
     width: 97%;
     height: 1730%;
     overflow: scroll;
-    
 }
 .buscador{
     font-size: 180%;
 }
 .buscador,label{
-    padding-right: 2%;
+    padding-right: 0.3%;
 }
 .buscador input{
     border-radius: 4%;
@@ -249,9 +260,9 @@ body {
     
 }
 .buscador button{
-    padding-right: inherit;
-    margin-right: 1.3%;
-    margin-left: 2%;
+    padding-right: 50%;
+    margin-right: 2.3%;
+    margin-left: 1%;
     
 }
 

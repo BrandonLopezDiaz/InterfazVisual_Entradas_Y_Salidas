@@ -86,10 +86,11 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el numero del practicante</label>
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
+                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: 1%;">Buscar</button>
                 
                 <RouterLink to="BusquedaFechaYNumEmp" class="IrABusqueda"><bottom class="btn btn-primary">Busqueda por fecha</bottom></RouterLink>
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;">Exportar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: 4.3%;padding-left: 1%;
+                padding-right: 1%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">

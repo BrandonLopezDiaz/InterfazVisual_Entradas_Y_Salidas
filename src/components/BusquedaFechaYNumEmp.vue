@@ -88,9 +88,10 @@ import axios from "axios"
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
                 <input type="date" id="FechaInicio" placeholder="mm-dd-yyyy">
                 <input type="date" id="FechaFinal" placeholder="mm-dd-yyyy">
-                <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: inherit ">Buscar</button>
+                <button @click="consultarpracticantes()" class="btn btn-primary"  style="padding-right: 1%;">Buscar</button>
                 
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0.3%;">Exportar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0.3%;padding-left: 1%;
+                padding-right: 1%;">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
@@ -199,7 +200,7 @@ body {
     height: 20%;
     width: 100%;
 }
-#fecha{
+#FechaInicio, #FechaFinal{
     width: 15.7%;
     margin-left: 2%;
 }
@@ -235,7 +236,7 @@ body {
 .buscador button{
     padding-right: 50%;
     margin-right: 2.3%;
-    margin-left: 3%;
+    margin-left: 1%;
     
 }
 
