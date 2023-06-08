@@ -86,6 +86,9 @@ import axios from "axios"
             <div class="buscador">
                 <label>Ingrese el numero del practicante</label>
                 <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
+                <div class="FechasDeLabel">
+                    <label>Fecha de inicio y fecha final</label>
+                </div>
                 <input type="date" id="FechaInicio" placeholder="mm-dd-yyyy">
                 <input type="date" id="FechaFinal" placeholder="mm-dd-yyyy">
                 <button @click="consultarpracticantes()" class="btn btn-primary"  style="padding-right: 1%;">Buscar</button>
