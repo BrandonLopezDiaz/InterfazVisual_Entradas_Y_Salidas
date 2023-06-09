@@ -150,7 +150,7 @@ export default {
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
-            await axios.get('https://localhost:7127/tblEvents/nombre?nombre=' + this.form.numero).then((result) => {
+            await axios.get('https://localhost:5001/tblEvents/nombre?nombre=' + this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
                 if(result.data.result ==0){

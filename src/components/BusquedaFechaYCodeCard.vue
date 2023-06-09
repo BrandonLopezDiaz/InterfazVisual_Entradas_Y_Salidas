@@ -163,7 +163,7 @@ export default {
             this.form.fechainicio = `${FechaInicio[1]}-${FechaInicio[2]}-${FechaInicio[0]}`
             let FechaFinal = this.form.fechafinal.split('-')
             this.form.fechafinal = `${FechaFinal[1]}-${FechaFinal[2]}-${FechaFinal[0]}`
-            await axios.get('https://localhost:7127/tblEvents/cardcodeyfecha?tarjeta='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
+            await axios.get('https://localhost:5001/tblEvents/cardcodeyfecha?tarjeta='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result; 
                 if(result.data.result ==0){
