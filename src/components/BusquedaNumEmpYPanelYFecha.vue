@@ -167,13 +167,13 @@ export default {
             this.form.fechainicio= document.getElementById('FechaInicio').value;
             this.form.fechafinal= document.getElementById('FechaFinal').value;
             let FechaInicio = this.form.fechainicio.split('-')
-            this.form.fechainicio = `${FechaInicio[1]}-${FechaInicio[2]}-${FechaInicio[0]}`
+            this.form.fechainicio = `${FechaInicio[2]}-${FechaInicio[1]}-${FechaInicio[0]}`
             let FechaFinal = this.form.fechafinal.split('-')
-            this.form.fechafinal = `${FechaFinal[1]}-${FechaFinal[2]}-${FechaFinal[0]}`
-            await axios.get('https://localhost:5001/tblEvents/panelnumfecha?id='+this.form.panel+'&numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
+            this.form.fechafinal = `${FechaFinal[2]}-${FechaFinal[1]}-${FechaFinal[0]}`
+            await axios.get('https://localhost:5001/tblEvents/panelnumfecha?NumPanel='+this.form.panel+'&numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
-                if(result.data.result ==0){
+                if(result.data.result ==0|| result.data.result==null){
                     window.alert('No se encontró ningun registro');
                 } 
             });

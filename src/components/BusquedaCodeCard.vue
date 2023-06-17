@@ -136,6 +136,7 @@ function tableToExcel(){
         name: "worksheet"
         
     })
+    
     window.alert('Esto podria demorar unos segundos');
 }
 export default {
@@ -151,10 +152,11 @@ export default {
     methods: {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
+            
             await axios.get('https://localhost:5001/tblEvents/cardcode?tarjeta=' + this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
-                if(result.data.result ==0){
+                if(result.data.result ==0 || result.data.result==null ){
                     window.alert('No se encontró ningun registro');
                 } 
             });

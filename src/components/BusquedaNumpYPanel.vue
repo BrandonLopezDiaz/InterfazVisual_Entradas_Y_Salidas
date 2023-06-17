@@ -161,10 +161,10 @@ export default {
         async consultarpracticantes() {
             this.form.numero = document.getElementById('numero').value;
             this.form.panel = document.getElementById('Panel').value;
-            await axios.get('https://localhost:5001/tblEvents/panelynum?id='+this.form.panel+'&numemp='+this.form.numero).then((result) => {
+            await axios.get('https://localhost:5001/tblEvents/panelynum?NumPanel='+this.form.panel+'&numemp='+this.form.numero).then((result) => {
                 console.log(result.data.result);
                 this.practicante = result.data.result;
-                if(result.data.result ==0){
+                if(result.data.result ==0|| result.data.result==null){
                     window.alert('No se encontró ningun registro');
                 } 
             });
