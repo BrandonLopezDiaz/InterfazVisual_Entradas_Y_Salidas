@@ -22,7 +22,7 @@ import Logo from '../components/Inicio.vue'
                     <li class="nav-item" style="padding-left: 4%;">
                         <span class="nav-item__icon"><ion-icon name="chatbox-outline"></ion-icon></span>
                         <span class="nav-item__text"> 
-                            Buscar por número de empleado 
+                            Buscar por número de colaborador 
                         </span>
                     </li>
                 </RouterLink>
@@ -53,7 +53,7 @@ import Logo from '../components/Inicio.vue'
                     <li class="nav-item" style="padding-left: 4%;">
                         <span class="nav-item__icon"><ion-icon name="person-outline"></ion-icon></span>
                         <span class="nav-item__text">
-                            Buscar por panel y numero de empleado
+                            Buscar por panel y numero de colaborador
                         </span>
                     </li>
                 </RouterLink>
@@ -182,4 +182,18 @@ img {
     display: flex;
     align-items: center;
 }
+/*Diseño de la tabla*/
+.tabla{
+    width: 97%;
+    height: 1570%;
+    overflow: scroll;
+    background-color: white;
+    border-radius: 1%;
+}
+.div table{
+    width: 97%;
+    height: 1570%;
+    
+}
+
 </style>

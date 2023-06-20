@@ -12,7 +12,7 @@ import axios from "axios"
         <header class="header">
             <div>
                 <h1>
-                    Búsqueda por número de practicante
+                    Búsqueda por número de colaborador
                 </h1>
             </div>
         </header>
@@ -37,7 +37,7 @@ import axios from "axios"
                     <li class="nav-item" style="padding-left: 4%;">
                         <span class="nav-item__icon"><ion-icon name="chatbox-outline"></ion-icon></span>
                         <span class="nav-item__text"> 
-                            Buscar por número de empleado 
+                            Buscar por número de colaborador 
                         </span>
                     </li>
                 </RouterLink>
@@ -68,7 +68,7 @@ import axios from "axios"
                     <li class="nav-item" style="padding-left: 4%;">
                         <span class="nav-item__icon"><ion-icon name="person-outline"></ion-icon></span>
                         <span class="nav-item__text">
-                            Buscar por panel y numero de empleado
+                            Buscar por panel y numero de colaborador
                         </span>
                     </li>
                 </RouterLink>
@@ -77,9 +77,9 @@ import axios from "axios"
         <!-- Tabla de contenido -->
         <div class="Contenido">
             <div class="buscador">
-                <label>Ingrese el numero del practicante y panel</label>
+                <label>Ingrese el numero del colaborador y panel</label>
                 <!--Recibe un dato y lo almacena para ser usada-->
-                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
+                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del colaborador"/>
                 <select id="Panel" > <option selected>Elija un panel</option>
                 <!--Muestra los distintos paneles que hay y a su vez cuandon es seleccionado captura el valor y lo manda a otra funcion-->
                 <option v-for="tblNetwork in Panel" :value="tblNetwork.idNetwork" :key="tblNetwork.idNetwork"> {{tblNetwork.tDescNetwork}}</option>
@@ -94,8 +94,7 @@ import axios from "axios"
                 <!--Cuando se le da click llama a una funcion esta funcion recibe los datos de los 3 input y select-->
                 <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: 1%; margin-left: 1.1%;">Buscar</button>
                 <!--Llama a una funcion la cual recibe los datos que estan en la tabla y lo vuelve un excel-->
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style=" margin-left: -0.7%;padding-left: 1%;
-                padding-right: 1%;">Exportar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success">Exportar a Excel</button>
             </div>
             <div class="tabla" style="width: 97%;">
                 <table id="mytable" class="table">
@@ -106,7 +105,7 @@ import axios from "axios"
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Registro</th>
-                            <th>Numero del practicante</th>
+                            <th>Numero del colaborador</th>
                             <th>Numero de la tarjeta</th>
                             <th>Nombre completo</th>
                             <th>Departamento</th>
@@ -140,7 +139,8 @@ function tableToExcel(){
     //Llama a la id mytable y los datos que tiene esa tabla los mete a un excel mediente una libreria
     $("#mytable").table2excel({
         //El nombre del archivo el cual se creara
-        filename: 'Colaborador_'+document.getElementById('numero').value +'_Fecha_'+ document.getElementById('fecha').value+'.xls',       
+        filename: 'Colaborador_'+document.getElementById('numero').value +'_Inicio_'+ document.getElementById('FechaInicio').value
+        +'_Final_'+document.getElementById('FechaFinal').value+'.xls',       
         name: "worksheet"
     })
     //Manda una alerta al usuario
@@ -244,9 +244,7 @@ body {
 }
 /*Botones*/
 #Excel{
-    padding-right: inherit;
-    margin-left: 0.3%;
-    margin-right: 0%;
+    margin-left: 6%;
 }
 .buscador button{
     padding-right: inherit;
@@ -256,26 +254,15 @@ body {
     
 }
 .IrABusqueda{
-    margin-left: 1%;
+    margin-left: 8%;
+
 }
 /*Tabla*/
 .Arriba{
     background-color:#497ceb;
     color: white;
 }
-.tabla{
-    width: 97%;
-    height: 1730%;
-    overflow: scroll;
-    background-color: white;
-    border-radius: 1%;
-}
-.div table{
-    width: 97%;
-    height: 1730%;
-    overflow: scroll;
-    
-}
+
 /*Buscador*/
 .buscador{
     font-size: 180%;

@@ -6,7 +6,7 @@ import axios from "axios"
         <header class="header">
             <div>
                 <h1>
-                    Búsqueda por número de practicante
+                    Búsqueda por número de colaborador
                 </h1>
             </div>
         </header>
@@ -31,7 +31,7 @@ import axios from "axios"
                     <li class="nav-item" style="padding-left: 4%;">
                         <span class="nav-item__icon"><ion-icon name="chatbox-outline"></ion-icon></span>
                         <span class="nav-item__text"> 
-                            Buscar por número de empleado 
+                            Buscar por número de colaborador 
                         </span>
                     </li>
                 </RouterLink>
@@ -62,7 +62,7 @@ import axios from "axios"
                     <li class="nav-item" style="padding-left: 4%;">
                         <span class="nav-item__icon"><ion-icon name="person-outline"></ion-icon></span>
                         <span class="nav-item__text">
-                            Buscar por panel y numero de empleado
+                            Buscar por panel y numero de colaborador
                         </span>
                     </li>
                 </RouterLink>
@@ -71,9 +71,9 @@ import axios from "axios"
         <!-- Tabla de contenido -->
         <div class="Contenido">
             <div class="buscador">
-                <label>Ingrese el numero del practicante y panel</label>
+                <label>Ingrese el numero del colaborador y panel</label>
                 <!--Recibe un dato y lo almacena para ser usuada-->
-                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del practicante"/>
+                <input type="number" id="numero" name="num" value="" style="border-radius: 4%;" placeholder="Ingrese el numero del colaborador"/>
                 <select id="Panel"  >
                     <option selected>Elija un panel</option>
                     <!--Muestra los distintos paneles que hay y a su vez cuandon es seleccionado captura el valor y lo manda a otra funcion-->
@@ -82,12 +82,12 @@ import axios from "axios"
                 <!--Cuando se le da click llama a una funcion esta funcion recibe los datos del input y select-->
                 <button @click="consultarpracticantes()" class="btn btn-primary" style="padding-right: 1%;margin-left: 0.5%; margin-right: -2.7%;"  >Buscar</button>
                 <!--Redirije a otra vista-->
-                <RouterLink to="BusquedaNumEmpYPanelYFecha" class="IrABusqueda"><bottom class="btn btn-primary" style="margin-left: 1%;">Busqueda por fecha</bottom></RouterLink>
+                <RouterLink to="BusquedaNumEmpYPanelYFecha" class="IrABusqueda"><bottom class="btn btn-primary" >Busqueda por fecha</bottom></RouterLink>
                 <!--Llama a una funcion la cual recibe los datos que estan en la tabla y lo vuelve un excel-->
-                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 1%; padding-left: 1%; padding-right: 1%;">Exportar a Excel</button>
+                <button id="Excel" @click="tableToExcel()" class="btn btn-success" style="margin-left: 0%;">Exportar a Excel</button>
             </div>
-            <div class="tabla" style="width: 97%;">
-                <div class="tabla" style="width: 97%;">
+           
+                <div class="tabla" style="width: 97%;height: 1675%;">
                     <table id="mytable" class="table">
                         <thead>
                             <tr class="Arriba"><!--Titulo de las columnas-->
@@ -96,7 +96,7 @@ import axios from "axios"
                                 <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Registro</th>
-                                <th>Numero del practicante</th>
+                                <th>Numero del colaborador</th>
                                 <th>Numero de la tarjeta</th>
                                 <th>Nombre completo</th>
                                 <th>Departamento</th>
@@ -122,7 +122,7 @@ import axios from "axios"
                     </table>
                 </div>
             </div>
-        </div>
+       
     </main>
 </template>
 <script>
@@ -236,26 +236,14 @@ body {
     
 }
 .IrABusqueda{
-    margin-left: 1%;
+    margin-left: 8%;
 }
 /*Tabla*/
 .Arriba{
     background-color:#497ceb;
     color: white;
 }
-.tabla{
-    width: 97%;
-    height: 1730%;
-    overflow: scroll;
-    background-color: white;
-    border-radius: 1%;
-}
-.div table{
-    width: 97%;
-    height: 1730%;
-    overflow: scroll;
-    
-}
+
 /*Buscador*/
 .buscador{
     font-size: 180%;
