@@ -22,53 +22,61 @@ const router = createRouter({
       component: HomeView
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/Dashboard',
       name: 'Dashboard',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/DashBoard.vue')
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/Inicio',
       name: 'Inicio',
       component: Inicio
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaCodeCard',
       name: 'BusquedaCodeCard',
       component: BusquedaCode
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaFull',
       name: 'BusquedaFull',
       component: BusquedaFull
-    }, {
+    }, 
+    {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaNum',
       name: 'BusquedaNum',
       component: BusquedaNum
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaFechaYNumEmp',
       name: 'BusquedaFechaYNumEmp',
       component: BusquedaFechaYNumEmp
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaFechaYFullName',
       name: 'BusquedaFechaYFullName',
       component: BusquedaFechaYFullName
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaFechaYCodeCard',
       name: 'BusquedaFechaYCodeCard',
       component: BusquedaFechaYCodeCard
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaNumEmpYPanelYFecha',
       name: 'BusquedaNumEmpYPanelYFecha',
       component: BusquedaNumEmpYPanelYFecha
     },
     {
+      //Declaro a mi componente una que va a respoder a path y en el codigo va ser llamado como estan en el name.
       path: '/BusquedaNumpYPanel',
       name: 'BusquedaNumpYPanel',
       component: BusquedaNumpYPanel
