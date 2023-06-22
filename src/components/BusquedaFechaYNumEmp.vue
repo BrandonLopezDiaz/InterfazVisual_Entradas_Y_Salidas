@@ -164,16 +164,24 @@ export default {
             let FechaFinal = this.form.fechafinal.split('-')//Separa las fechas por -
             this.form.fechafinal = `${FechaFinal[2]}-${FechaFinal[1]}-${FechaFinal[0]}` //Orden que devolverla la fecha
             //Funcion de axios para el get el cual recibe 3 valores
-            await axios.get('https://localhost:5001/tblEvents/numempyfecha?numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
-                //Datos devueltos para la consola
-               console.log(result.data.result);
-                //Datos que se le devolveran a la tabla
-                this.practicante = result.data.result;
-                //Verificador de variables sirve para saber si la variable viene nula o es el valor es 0
-                if(result.data.result ==0|| result.data.result==null){
-                    window.alert('No se encontró ningun registro');
-                } 
-            });
+            try
+            {
+                await axios.get('https://localhost:5001/tblEvents/numempyfecha?numemp=' + this.form.numero + '&FechaInicio=' + this.form.fechainicio + '&FechaFinal=' + this.form.fechafinal).then((result) => {
+                    //Datos devueltos para la consola
+                    console.log(result.data.result);
+                    //Datos que se le devolveran a la tabla
+                    this.practicante = result.data.result;
+                    //Verificador de variables sirve para saber si la variable viene nula o es el valor es 0
+                    if (result.data.result == 0 || result.data.result == null) {
+                        window.alert('No se encontró ningun registro');
+                    }
+                });
+            }
+            catch
+            {
+                window.alert('No se encontró ningun registro');
+            }
+            
         },
     },
 };

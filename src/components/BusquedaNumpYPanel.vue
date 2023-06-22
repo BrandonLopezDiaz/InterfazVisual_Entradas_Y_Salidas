@@ -160,16 +160,24 @@ export default {
             this.form.numero = document.getElementById('numero').value;//Obtiene el valor de la id
             this.form.panel = document.getElementById('Panel').value;//Obtiene el valor de la id
             //Funcion de axios para el get el cual recibe 2 valores
-            await axios.get('https://localhost:5001/tblEvents/panelynum?NumPanel='+this.form.panel+'&numemp='+this.form.numero).then((result) => {
-                //Datos devueltos para la consola
-                console.log(result.data.result);
-                //Datos que se le devolveran a la tabla
-                this.practicante = result.data.result;
-                //Verificador de variables sirve para saber si la variable viene nula o es el valor es 0
-                if(result.data.result ==0|| result.data.result==null){
-                    window.alert('No se encontró ningun registro');
-                } 
-            });
+            try
+            {
+                await axios.get('https://localhost:5001/tblEvents/panelynum?NumPanel=' + this.form.panel + '&numemp=' + this.form.numero).then((result) => {
+                    //Datos devueltos para la consola
+                    console.log(result.data.result);
+                    //Datos que se le devolveran a la tabla
+                    this.practicante = result.data.result;
+                    //Verificador de variables sirve para saber si la variable viene nula o es el valor es 0
+                    if (result.data.result == 0 || result.data.result == null) {
+                        window.alert('No se encontró ningun registro');
+                    }
+                });
+            }
+            catch
+            {
+                window.alert('No se encontró ningun registro');
+            }
+            
         },
         //Funcion asincrona que trae todos los paneles para el select
         async ConsultarPanel() {

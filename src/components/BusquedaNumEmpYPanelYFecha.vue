@@ -177,7 +177,9 @@ export default {
             let FechaFinal = this.form.fechafinal.split('-')//Separa las fechas por -
             this.form.fechafinal = `${FechaFinal[2]}-${FechaFinal[1]}-${FechaFinal[0]}` //Orden que devolverla la fecha
             //Funcion de axios para el get el cual recibe 4 valores
-            await axios.get('https://localhost:5001/tblEvents/panelnumfecha?NumPanel='+this.form.panel+'&numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
+            try
+            {
+                await axios.get('https://localhost:5001/tblEvents/panelnumfecha?NumPanel='+this.form.panel+'&numemp='+this.form.numero+'&FechaInicio='+this.form.fechainicio+'&FechaFinal='+this.form.fechafinal).then((result) => {
                //Datos devueltos para la consola
                console.log(result.data.result);
                 //Datos que se le devolveran a la tabla
@@ -187,6 +189,11 @@ export default {
                     window.alert('No se encontró ningun registro');
                 } 
             });
+            }
+            catch
+            {
+                window.alert('No se encontró ningun registro');
+            }
         },
         //Funcion asincrona que trae todos los paneles para el select
         async ConsultarPanel() {
