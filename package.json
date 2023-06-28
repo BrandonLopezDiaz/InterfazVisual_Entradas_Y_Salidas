@@ -15,8 +15,8 @@
     "datatables.net-dt": "^1.13.4",
     "datatables.net-vue3": "^2.1.0",
     "jquery": "^3.7.0",
-    "table2excel": "^1.0.4",
-    "vue": "^3.3.2",
+    "table2excel": "^1.0.0",
+    "vue": "^3.3.4",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
